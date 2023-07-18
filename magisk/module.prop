@@ -1,6 +1,6 @@
-id=samsung-fod-wakeup
-name=Samsung FOD Wakeup
-version=2.7
-versionCode=22031901
+id=xiaomi-aod-wakeup
+name=Xiaomi FOD Wakeup
+version=v3.0.0
+versionCode=23071801
 author=TenSeventy7
-description=Tiny service to bring features such as 'tap to AOD' and 'FOD on screen-off' to devices running AOSP.
+description=Tiny service to bring features such as 'tap to AOD' to Xiaomi devices running AOSP.
