@@ -1,7 +1,7 @@
-<h1 align="center">samsung-fod-wakeup</h1>
+<h1 align="center">xiaomi-aod-wakeup</h1>
 <p align="center">
-  <i>Tiny service to bring features such as 'tap to AOD' and 'FOD on screen-off' to Samsung devices running AOSP.</i><br/>
-  <a href="https://github.com/okitavera/goodix-fod-wakeup/blob/master/LICENSE">
+  <i>Tiny service to bring features such as 'tap to AOD' to Xiaomi devices running AOSP.</i><br/>
+  <a href="https://github.com/TenSeventy7/xiaomi-fod-wakeup/blob/master/LICENSE">
     <img alt="License: BSD 3-Clause" src="https://img.shields.io/badge/License-BSD%203--Clause-red.svg" target="_blank" />
   </a>
   <a href="https://twitter.com/TenSeventy7">
@@ -39,7 +39,8 @@ ndk-build APP_BUILD_SCRIPT=Android.mk NDK_PROJECT_PATH=out/ APP_PLATFORM=26
 ## License 📝
 
 Copyright © 2019 [Nanda Oktavera](https://github.com/okitavera).
-Extensions © 2022 [John Vincent](https://github.com/TenSeventy7).
+Originally for Samsung devices © 2022 [John Vincent](https://github.com/TenSeventy7).
+Xiaomi Extensions © 2023 [John Vincent](https://github.com/TenSeventy7).
 
 This project is [BSD-3-Clause](LICENSE) licensed.
 
