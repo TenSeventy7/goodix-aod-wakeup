@@ -1,11 +1,12 @@
 /* SPDX-License-Identifier: BSD-3-Clause
  *
- * Samsung FOD Wakeup
- * Tiny service for in-display fingerprint to do tap-to-wake-and-scan
- * for Samsung devices with a compatible kernel.
+ * Xiaomi FOD Wakeup
+ * Tiny service for tap-to-AOD for Xiaomi devices
+ * on ROMs that don't support the feature.
  *
  * Copyright (c) 2019 Nanda Oktavera
- * Extensions 2021 John Vincent
+ * Originally for Samsung devices 2021, John Vincent
+ * Xiaomi Extensions 2023, John Vincent
  * Released under the terms of 3-clause BSD License
  *
  */
@@ -17,6 +18,7 @@
 #include <linux/input.h>
 #include "wakeup.h"
 
+#ifdef GOODIXTS_SEND_INPUT
 int send_input(char *input, uint16_t type, uint16_t code, uint16_t value)
 {
 	int fd, ret = 1;
@@ -38,6 +40,7 @@ out:
 	close(fd);
 	return ret;
 }
+#endif
 
 int readfint(char *file)
 {

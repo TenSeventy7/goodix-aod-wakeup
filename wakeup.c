@@ -1,11 +1,12 @@
 /* SPDX-License-Identifier: BSD-3-Clause
  *
- * Samsung FOD Wakeup
- * Tiny service for in-display fingerprint to do tap-to-wake-and-scan
- * for Samsung devices with a compatible kernel.
+ * Xiaomi FOD Wakeup
+ * Tiny service for tap-to-AOD for Xiaomi devices
+ * on ROMs that don't support the feature.
  *
  * Copyright (c) 2019 Nanda Oktavera
- * Extensions 2021 John Vincent
+ * Originally for Samsung devices 2021, John Vincent
+ * Xiaomi Extensions 2023, John Vincent
  * Released under the terms of 3-clause BSD License
  *
  */
@@ -18,33 +19,9 @@
 #include <linux/input.h>
 #include "wakeup.h"
 
-static void wakeup_fod()
-{
-	if (readfint(BLDEV) > 3 || readfint(PRDEV) > 220) {
-		usleep(DELAY);
-		return;
-	}
-
-	dbg(":: Wake-up the screen.\n");
-	system("input keyevent KEYCODE_WAKEUP");
-
-	for(;;) {
-		if (readfint(BLDEV) <= 5)
-			continue;
-
-		dbg(":: Screen on.\n");
-		dbg(":: Emulating touches\n");
-
-		system("input touchscreen swipe 443 1972 443 1972 500");
-
-		dbg(":: Done\n");
-		return;
-	}
-}
-
 static void wakeup_aod()
 {
-	if (readfint(BLDEV) > 3 || readfint(PRDEV) > 220) {
+	if (readfint(BLDEV) <= FB_BLANK_NORMAL) { // screen is already on
 		usleep(DELAY);
 		return;
 	}
@@ -59,12 +36,13 @@ int main()
 	struct input_event ev;
 	size_t evsize = sizeof(struct input_event);
 
-	dbg("SamsungFODWakeup %s\n", APP_VERSION);
-	dbg("Tiny service for in-display fingerprint to do tap-to-wake-and-scan on Samsung devices\n");
+	dbg("Xiaomi AOD Wakeup %s\n", APP_VERSION);
+	dbg("Tiny service for tap-to-AOD on Xiaomi devices\n");
 	dbg("Copyright 2019, Nanda Oktavera\n");
-	dbg("Extensions 2021, John Vincent\n");
+	dbg("Originally for Samsung devices 2021, John Vincent\n");
+	dbg("Xiaomi Extensions 2023, John Vincent\n");
 
-	if (getuid() != 0){
+	if (getuid() != 0) {
 		printf("Permission denied, please run as root. exiting\n");
 		return 1;
 	}
@@ -79,10 +57,7 @@ int main()
 
 		if (unlikely(ev.value == 1)) {
 			switch (ev.code) {
-				case INP_OFF:
-					wakeup_fod();
-					break;
-				case INP_AOD:
+				case KEY_GOTO:
 					wakeup_aod();
 					break;
 				default:

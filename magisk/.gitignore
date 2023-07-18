@@ -1,3 +1,5 @@
-**/fod_wakeup
+**/mi_aod_wakeup
 **/*.o
 **/*.o.d
+out/
+out
